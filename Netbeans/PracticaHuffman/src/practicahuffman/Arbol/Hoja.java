@@ -9,11 +9,11 @@ package practicahuffman.Arbol;
 import practicahuffman.Visitors.Visitor;
 
 /**
- *
+ * Hojas de un arbol binario.
  */
 public class Hoja extends Nodo{
 
-    private char text;
+    private final char text;
 
     public Hoja(char simbolo) {
         this.text = simbolo;

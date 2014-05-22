@@ -9,13 +9,13 @@ package practicahuffman.Arbol;
 import practicahuffman.Visitors.Visitor;
 
 /**
- *
+ * Nodo que no es hoja (tiene hijos)
  */
 public class Rama extends Nodo {
 
-    private Nodo leftChild;
+    private final Nodo leftChild;
     
-    private Nodo rightChild;
+    private final Nodo rightChild;
 
     public Rama(Nodo leftChild, Nodo rightChild) {
         this.leftChild = leftChild;

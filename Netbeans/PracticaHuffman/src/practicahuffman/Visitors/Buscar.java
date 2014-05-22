@@ -11,7 +11,6 @@ import practicahuffman.Arbol.Hoja;
 
 /**
  *
- * @author luisponcedeleon
  */
 public class Buscar implements Visitor{
 

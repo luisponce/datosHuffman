@@ -11,11 +11,26 @@ import practicahuffman.Arbol.Hoja;
 
 /**
  *
- * @author luisponcedeleon
  */
 public class Desencriptar implements Visitor {
     
+    private char resultado;
     
+    private String codigoResultado;
+    
+    /**
+     * cadena a desencriptar
+     */
+    private String cadena;
+
+    /**
+     * 
+     * @param c cadena a desencriptar
+     */
+    public Desencriptar(String c) {
+        codigoResultado = "";
+        cadena = c;
+    }
     
     @Override
     public void visitar(Hoja n) {

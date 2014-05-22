@@ -6,6 +6,7 @@
 
 package practicahuffman;
 
+import practicahuffman.Arbol.Hoja;
 import practicahuffman.Arbol.Nodo;
 
 /**
@@ -14,7 +15,7 @@ import practicahuffman.Arbol.Nodo;
 public class Huffman {
     private static Huffman INSTANCE;
     
-    private Simbolo[] alfabeto;
+    private Hoja[] alfabeto;
     
     private Nodo raizArbol;
     
@@ -43,11 +44,11 @@ public class Huffman {
      * @param cadena Cadena de entrada a analizar.
      * @return Los simbolos con sus frecuencias en la cadena.
      */
-    public Simbolo[] EncontrarFrecuencia(String cadena){
+    public Hoja[] EncontrarFrecuencia(String cadena){
         return null;
     }
     
-    public void ConstruirArbol(Simbolo[] Alfabeto){
+    public void ConstruirArbol(Hoja[] Alfabeto){
         
     }
     
@@ -69,11 +70,11 @@ public class Huffman {
     *              SETTERS
     */
 
-    public Simbolo[] getAlfabeto() {
+    public Hoja[] getAlfabeto() {
         return alfabeto;
     }
 
-    public void setAlfabeto(Simbolo[] alfabeto) {
+    public void setAlfabeto(Hoja[] alfabeto) {
         this.alfabeto = alfabeto;
     }
 

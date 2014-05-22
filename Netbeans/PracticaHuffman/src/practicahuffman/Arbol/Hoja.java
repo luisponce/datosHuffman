@@ -6,7 +6,6 @@
 
 package practicahuffman.Arbol;
 
-import practicahuffman.Simbolo;
 import practicahuffman.Visitors.Visitor;
 
 /**
@@ -14,10 +13,10 @@ import practicahuffman.Visitors.Visitor;
  */
 public class Hoja extends Nodo{
 
-    private Simbolo simbolo;
+    private char text;
 
-    public Hoja(Simbolo simbolo) {
-        this.simbolo = simbolo;
+    public Hoja(char simbolo) {
+        this.text = simbolo;
     }
     
     
@@ -26,7 +25,7 @@ public class Hoja extends Nodo{
         v.visitar(this);
     }
 
-    public Simbolo getSimbolo() {
-        return simbolo;
+    public char getText() {
+        return text;
     }
 }

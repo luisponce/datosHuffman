@@ -15,8 +15,9 @@ public class Hoja extends Nodo{
 
     private final char text;
 
-    public Hoja(char simbolo) {
+    public Hoja(char simbolo, int freq) {
         this.text = simbolo;
+        this.frecuencia = freq;
     }
     
     

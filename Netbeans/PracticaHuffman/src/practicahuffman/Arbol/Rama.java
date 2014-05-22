@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 package practicahuffman.Arbol;
 
@@ -20,6 +15,9 @@ public class Rama extends Nodo {
     public Rama(Nodo leftChild, Nodo rightChild) {
         this.leftChild = leftChild;
         this.rightChild = rightChild;
+        frecuencia = leftChild.frecuencia + rightChild.frecuencia;
+        leftChild.padre = this;
+        rightChild.padre = this;
     }
     
     @Override

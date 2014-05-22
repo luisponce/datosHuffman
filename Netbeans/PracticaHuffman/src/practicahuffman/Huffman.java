@@ -6,8 +6,11 @@
 
 package practicahuffman;
 
+import ManejadorArreglos.ManejadorArreglosDeNodos;
+import java.util.Arrays;
 import practicahuffman.Arbol.Hoja;
 import practicahuffman.Arbol.Nodo;
+import practicahuffman.Arbol.Rama;
 
 /**
  * Clase singleton.
@@ -48,8 +51,27 @@ public class Huffman {
         return null;
     }
     
-    public void ConstruirArbol(Hoja[] Alfabeto){
+    
+    /**
+     * Crea el arbol y lo guarda en raizArbol
+     * @param alfabeto El alfabeto de simbolos como Hojas (simbolo y frecuencia)
+     */
+    public void ConstruirArbol(Hoja[] alfabeto){
+        Nodo[] roots = alfabeto;
+        Arrays.sort(roots); //ordenar el arreglo
         
+        while(roots.length>1){
+            Nodo n1 = roots[0]; //el menor
+            Nodo n2 = roots[1]; //el segundo menor
+            Nodo padre = new Rama(n1, n2);
+            ManejadorArreglosDeNodos arr = new ManejadorArreglosDeNodos(roots);
+            arr.EliminarNodo(0);
+            arr.EliminarNodo(1);
+            arr.InsertarYdesplazar(padre);
+            roots = arr.getArreglo();
+        }
+        
+        raizArbol = roots[0];
     }
     
     public String Encriptar(String cadena){

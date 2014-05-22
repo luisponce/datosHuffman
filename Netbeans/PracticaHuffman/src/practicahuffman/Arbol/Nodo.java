@@ -6,11 +6,11 @@ import practicahuffman.Visitors.Visitor;
 /**
  * Nodo de un arbol Binario.
  */
-public abstract class Nodo {
+public abstract class Nodo implements Comparable<Nodo>{
     
-    private Rama padre;
+    protected Rama padre;
     
-    private int frecuencia;
+    protected int frecuencia;
     
     public abstract void Aceptar(Visitor v) ;
 
@@ -24,5 +24,13 @@ public abstract class Nodo {
 
     public int getFrecuencia() {
         return frecuencia;
+    }
+    //x.compareTo(y)
+    @Override
+    public int compareTo(Nodo o) {
+        Integer f1 = this.frecuencia; //freq x
+        Integer f2 = o.frecuencia; //freq y
+        
+        return f1.compareTo(f2);
     }
 }

@@ -6,7 +6,6 @@
 
 package practicahuffman.Visitors;
 
-import com.sun.corba.se.impl.orb.ParserTable;
 import practicahuffman.Arbol.Rama;
 import practicahuffman.Arbol.Hoja;
 
@@ -32,12 +31,18 @@ public class Desencriptar implements Visitor {
     
     @Override
     public void visitar(Hoja n) {
-        
+        resultado = n.getText();
     }
 
     @Override
     public void visitar(Rama n) {
-        
+        char cur = cadena.charAt(0);
+        cadena = cadena.substring(1);
+        if(cur == '0'){
+            n.getLeftChild().Aceptar(this);
+        } else {
+            n.getRightChild().Aceptar(this);
+        }
     }
 
     public void setCadena(String cadena) {

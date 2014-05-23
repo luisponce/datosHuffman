@@ -26,23 +26,36 @@ public class ManejadorArreglosDeNodos {
     }
     
     public Nodo[] InsertarYdesplazar(Nodo n){
-        Nodo[] nuevo = new Nodo[arreglo.length+1];
-        System.arraycopy(arreglo, 0, nuevo, 0, arreglo.length);
-        boolean done = false;
-        int i;
-        for (i = 0; i < nuevo.length && !done; i++) {
-            if(nuevo[i].getFrecuencia() <= n.getFrecuencia()) done = true;
+        Nodo[] nuevo;
+        if (arreglo!= null) {
+            nuevo = new Nodo[arreglo.length+1];
+            System.arraycopy(arreglo, 0, nuevo, 0, arreglo.length);
+            boolean done = false;
+            int i;
+            for (i = 0; i < arreglo.length && done == false; i++) {
+                if(n.getFrecuencia() <= nuevo[i].getFrecuencia()) {
+                    done = true; 
+                }
+            }
+            int pos = i;
+            if(pos != 0){
+                System.arraycopy(arreglo, 0, nuevo, 0, pos);
+            }
+            if(pos != arreglo.length-1){
+                System.arraycopy(arreglo, pos, nuevo, pos+1, nuevo.length-pos-1);
+            }
+            
+            nuevo[i] = n;
+        } else {
+            nuevo = new Nodo[1];
+            nuevo[0] = n;
         }
-        
-        System.arraycopy(nuevo, i, nuevo, i+1, nuevo.length-i);
-        nuevo[i] = n;
-        
         arreglo = nuevo;
-        return nuevo;
+        return arreglo;
     }
     
-    public Nodo[] EliminarNodo(int pos){
-        Nodo[] nuevo = new Nodo[pos-1];
+    public void EliminarNodo(int pos){
+        Nodo[] nuevo = new Nodo[arreglo.length-1];
         if(pos != 0){
             System.arraycopy(arreglo, 0, nuevo, 0, pos-1);
         }
@@ -52,6 +65,5 @@ public class ManejadorArreglosDeNodos {
         }
         
         arreglo = nuevo;
-        return nuevo;
     }
 }

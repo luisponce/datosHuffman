@@ -56,8 +56,8 @@ public class Huffman {
      * Crea el arbol y lo guarda en raizArbol
      * @param alfabeto El alfabeto de simbolos como Hojas (simbolo y frecuencia)
      */
-    public void ConstruirArbol(Hoja[] alfabeto){
-        Nodo[] roots = alfabeto;
+    public void ConstruirArbol(){
+        Nodo[] roots = this.alfabeto;
         Arrays.sort(roots); //ordenar el arreglo
         
         while(roots.length>1){
@@ -66,11 +66,13 @@ public class Huffman {
             Nodo padre = new Rama(n1, n2);
             ManejadorArreglosDeNodos arr = new ManejadorArreglosDeNodos(roots);
             arr.EliminarNodo(0);
-            arr.EliminarNodo(1);
-            arr.InsertarYdesplazar(padre);
-            roots = arr.getArreglo();
+            if (arr.getArreglo().length>1) {
+                arr.EliminarNodo(0); 
+            } else {
+                arr.setArreglo(null);
+            }
+            roots = arr.InsertarYdesplazar(padre);
         }
-        
         raizArbol = roots[0];
     }
     

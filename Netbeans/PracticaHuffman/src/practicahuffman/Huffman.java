@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 
 package practicahuffman;
 
@@ -14,6 +10,8 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.HashMap;
+import java.util.Map;
 import practicahuffman.Arbol.Hoja;
 import practicahuffman.Arbol.Nodo;
 import practicahuffman.Arbol.Rama;
@@ -86,7 +84,23 @@ public class Huffman {
      * @return Los simbolos con sus frecuencias en la cadena.
      */
     public Hoja[] EncontrarFrecuencia(String cadena){
-        return null;
+        Map<Character, Integer> alfabetoFrecuencias = new HashMap<Character, Integer>();
+        
+        for(char a : cadena.toCharArray()) {
+            Integer freq = alfabetoFrecuencias.get(a);
+            alfabetoFrecuencias.put(a, (freq == null) ? 1 : freq+1); 
+        }
+        
+        Character[] keys = alfabetoFrecuencias.keySet().toArray(new Character[alfabetoFrecuencias.size()]);
+        Hoja[] alphabet = new Hoja[keys.length];
+        int i = 0;
+        for (Character c : keys) {
+            Integer freqC = alfabetoFrecuencias.get(c);
+            alphabet[i] = new Hoja(c, freqC);
+            i++;
+        }
+        
+        return alphabet;
     }
     
     

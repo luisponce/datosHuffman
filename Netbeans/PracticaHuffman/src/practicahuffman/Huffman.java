@@ -7,7 +7,13 @@
 package practicahuffman;
 
 import ManejadorArreglos.ManejadorArreglosDeNodos;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Arrays;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import practicahuffman.Arbol.Hoja;
 import practicahuffman.Arbol.Nodo;
 import practicahuffman.Arbol.Rama;
@@ -34,10 +40,42 @@ public class Huffman {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        
+
+        try {
+            //testing Input
+            String c = Huffman.getInstance().
+                    LeerCadenaDeArchivo("/Users/luisponcedeleon/Github/datosHuffman/testHuffman.txt");
+            
+            System.out.println(c);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Huffman.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
-    public String LeerCadenaDeArchivo(String ruta){
+    /**
+     * Lee los contenidos de un string y los retorna en un string.
+     * @param ruta ruta del archivo a leer
+     * @return El string del contenido del archivo
+     * @throws FileNotFoundException Si no se enncuentra el archivo dado en ruta
+     */
+    public String LeerCadenaDeArchivo(String ruta) throws FileNotFoundException{
+        try {
+            BufferedReader reader = new BufferedReader( new FileReader (ruta));
+            String         line;
+            StringBuilder  stringBuilder = new StringBuilder();
+            String         ls = System.getProperty("line.separator");
+            
+            while( ( line = reader.readLine() ) != null ) {
+                stringBuilder.append( line );
+                stringBuilder.append( ls );
+            }
+            
+            return stringBuilder.toString();
+        } catch (IOException ex) {
+            Logger.getLogger(Huffman.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         return "";
     }
     
@@ -54,7 +92,6 @@ public class Huffman {
     
     /**
      * Crea el arbol y lo guarda en raizArbol
-     * @param alfabeto El alfabeto de simbolos como Hojas (simbolo y frecuencia)
      */
     public void ConstruirArbol(){
         Nodo[] roots = this.alfabeto;

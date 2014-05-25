@@ -29,4 +29,11 @@ public class Hoja extends Nodo{
     public char getText() {
         return text;
     }
+
+    @Override
+    public String toString() {
+        return "Hoja{" + "text=" + text + ", freq=" + super.frecuencia + '}';
+    }
+    
+    
 }

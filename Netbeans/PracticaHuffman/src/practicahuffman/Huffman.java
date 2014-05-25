@@ -15,6 +15,7 @@ import java.util.Map;
 import practicahuffman.Arbol.Hoja;
 import practicahuffman.Arbol.Nodo;
 import practicahuffman.Arbol.Rama;
+import practicahuffman.Visitors.Encriptar;
 
 /**
  * Clase singleton.
@@ -38,17 +39,52 @@ public class Huffman {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        
-
-        try {
-            //testing Input
-            String c = Huffman.getInstance().
-                    LeerCadenaDeArchivo("/Users/luisponcedeleon/Github/datosHuffman/testHuffman.txt");
+        if(args.length == 0){
+            System.out.println("Error: wrong usage");
+        } else if(args.length == 2){
+            Huffman.getInstance().setRutaInput(args[1]);//guardar la ruta
             
-            System.out.println(c);
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(Huffman.class.getName()).log(Level.SEVERE, null, ex);
+            try {
+                Huffman.getInstance().setCadena( //leer contenido del archivo
+                        Huffman.getInstance().LeerCadenaDeArchivo(args[1]));
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(Huffman.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            //calcular la frecuencia del alfabeto de simbolos
+            Huffman.getInstance().setAlfabeto(
+                Huffman.getInstance().EncontrarFrecuencia(
+                        Huffman.getInstance().getCadena()));
+            
+            //testing
+//            System.out.println(Arrays.toString(Huffman.getInstance().getAlfabeto()));
+            
+            Huffman.getInstance().ConstruirArbol();
+            
+            if(args[0].equals("-e")) { //encrypt
+                try {
+                    String res;
+                    res = Huffman.getInstance().Encriptar(
+                            Huffman.getInstance().cadena);
+                    
+                    System.out.println(res);
+                } catch (Exception ex) {
+                    Logger.getLogger(Huffman.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else{
+                System.out.println("Error: wrong usage");
+            }
         }
+
+//        //testing Input
+//        try {
+//            String c = Huffman.getInstance().
+//                    LeerCadenaDeArchivo("/Users/luisponcedeleon/Github/datosHuffman/testHuffman.txt");
+//            
+//            System.out.println(c);
+//        } catch (FileNotFoundException ex) {
+//            Logger.getLogger(Huffman.class.getName()).log(Level.SEVERE, null, ex);
+//        }
     }
     
     /**
@@ -79,7 +115,7 @@ public class Huffman {
     
     /**
      * Metodo para encontrar las frecuencias de los simbolos en
-     * la cadena de entrada
+     * la cadena de entrada.
      * @param cadena Cadena de entrada a analizar.
      * @return Los simbolos con sus frecuencias en la cadena.
      */
@@ -106,6 +142,7 @@ public class Huffman {
     
     /**
      * Crea el arbol y lo guarda en raizArbol
+     * El alfabeto de simbolos debe de estar guardado en simbolos.
      */
     public void ConstruirArbol(){
         Nodo[] roots = this.alfabeto;
@@ -127,16 +164,36 @@ public class Huffman {
         raizArbol = roots[0];
     }
     
-    public String Encriptar(String cadena){
-        return "";
+    
+    public String Encriptar(String cadena) throws Exception{
+        String ans = "";
+        char[] str = cadena.toCharArray();
+        for (char a : str) {
+            ans += Huffman.getInstance().Encriptar(a);
+        }
+        
+        return ans;
     }
     
     public char Desencriptar(String cadenaBinaria){
         return 'a';
     }
     
-    private String Encriptar(char simbolo){
-        return "";
+    private String Encriptar(char simbolo) throws Exception{
+        Encriptar visitorEncriptar = new Encriptar();
+        boolean found = false;
+        for (int i = 0; i < alfabeto.length && !found; i++) {
+            if(alfabeto[i].getText() == simbolo){
+                found = true;
+                alfabeto[i].Aceptar(visitorEncriptar);
+            }
+        }
+        
+        if(!found){
+            throw new Exception("Simbolo " + simbolo + " no existe en el alfabeto");
+        } else {
+            return visitorEncriptar.getResultado();
+        }
     }
     
     /*               

@@ -45,4 +45,9 @@ public class Encriptar implements Visitor{
         } 
         //si no tiene padre es que es la raiz, entonces no haga nada
     }
+
+    public String getResultado() {
+        return resultado;
+    }
+    
 }

@@ -66,4 +66,9 @@ public class ManejadorArreglosDeNodos {
         
         arreglo = nuevo;
     }
+    
+    public Nodo[] limpiarArreglo () {
+        arreglo = null;
+        return arreglo;
+    }
 }

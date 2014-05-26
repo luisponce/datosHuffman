@@ -21,7 +21,7 @@ public class Rama extends Nodo {
     }
     
     @Override
-    public void Aceptar(Visitor v) {
+    public void Aceptar(Visitor v) throws Exception {
         v.visitar(this);
     }
 

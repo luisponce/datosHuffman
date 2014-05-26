@@ -1,6 +1,7 @@
 
 package ManejadorArreglos;
 
+import java.util.Arrays;
 import practicahuffman.Arbol.Nodo;
 
 /**
@@ -26,31 +27,46 @@ public class ManejadorArreglosDeNodos {
     }
     
     public Nodo[] InsertarYdesplazar(Nodo n){
-        Nodo[] nuevo;
-        if (arreglo!= null) {
-            nuevo = new Nodo[arreglo.length+1];
-            System.arraycopy(arreglo, 0, nuevo, 0, arreglo.length);
-            boolean done = false;
-            int i;
-            for (i = 0; i < arreglo.length && done == false; i++) {
-                if(n.getFrecuencia() <= nuevo[i].getFrecuencia()) {
-                    done = true; 
-                }
-            }
-            int pos = i;
-            if(pos != 0){
-                System.arraycopy(arreglo, 0, nuevo, 0, pos);
-            }
-            if(pos != arreglo.length-1){
-                System.arraycopy(arreglo, pos, nuevo, pos+1, nuevo.length-pos-1);
-            }
-            
-            nuevo[i] = n;
+//        Nodo[] nuevo;
+//        if (arreglo!= null) {
+//            nuevo = new Nodo[arreglo.length+1];
+//            System.arraycopy(arreglo, 0, nuevo, 0, arreglo.length);
+//            boolean done = false;
+//            int i;
+//            for (i = 0; i < arreglo.length && done == false; i++) {
+//                if(n.getFrecuencia() <= nuevo[i].getFrecuencia()) {
+//                    done = true; 
+//                }
+//            }
+//            
+//            int pos = i;
+//            if(pos != 0){
+//                System.arraycopy(arreglo, 0, nuevo, 0, pos);
+//            }
+//            if(pos != arreglo.length-1){
+//                System.arraycopy(arreglo, pos, nuevo, pos+1, nuevo.length-pos-1);
+//            }
+//            
+//            nuevo[i] = n;
+//        } else {
+//            nuevo = new Nodo[1];
+//            nuevo[0] = n;
+//        }
+//        arreglo = nuevo;
+//        return arreglo;
+        
+        if(arreglo == null){
+            arreglo = new Nodo[1];
+            arreglo[0] = n;
         } else {
-            nuevo = new Nodo[1];
-            nuevo[0] = n;
+            Nodo[] nuevo = new Nodo[arreglo.length+1];
+            System.arraycopy(arreglo, 0, nuevo, 0, arreglo.length);
+            nuevo[nuevo.length-1] = n;
+
+            Arrays.sort(nuevo);
+            arreglo = nuevo;
         }
-        arreglo = nuevo;
+        
         return arreglo;
     }
     

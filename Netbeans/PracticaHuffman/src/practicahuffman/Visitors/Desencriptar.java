@@ -6,6 +6,8 @@
 
 package practicahuffman.Visitors;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import practicahuffman.Arbol.Rama;
 import practicahuffman.Arbol.Hoja;
 
@@ -31,13 +33,30 @@ public class Desencriptar implements Visitor {
     
     @Override
     public void visitar(Hoja n) {
+        if(cadena == null){}
         resultado = n.getText();
+        
     }
 
     @Override
     public void visitar(Rama n) {
+        if(cadena == null){
+            try {
+                //la cadena no puede llagar vacia a una rama.
+                throw new Exception("No se pudo reconocer la cadena");
+            } catch (Exception ex) {
+                Logger.getLogger(Desencriptar.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
         char cur = cadena.charAt(0);
-        cadena = cadena.substring(1);
+        
+        if(cadena.length() == 1){//si solo que da un char, borre el string
+            cadena = null;
+        } else {// si no, quitele el primer char.
+            cadena = cadena.substring(1);
+        }
+        
         if(cur == '0'){
             n.getLeftChild().Aceptar(this);
         } else {

@@ -15,7 +15,9 @@ import java.util.Map;
 import practicahuffman.Arbol.Hoja;
 import practicahuffman.Arbol.Nodo;
 import practicahuffman.Arbol.Rama;
+import practicahuffman.Visitors.Desencriptar;
 import practicahuffman.Visitors.Encriptar;
+import practicahuffman.Visitors.Visitor;
 
 /**
  * Clase singleton.
@@ -41,40 +43,76 @@ public class Huffman {
     public static void main(String[] args) {
         if(args.length == 0){
             System.out.println("Error: wrong usage");
-        } else if(args.length == 2){
+        } else if(args.length == 2 && args[0].equals("-e")){try {
+            //encrypt
             Huffman.getInstance().setRutaInput(args[1]);//guardar la ruta
-            
-            try {
-                Huffman.getInstance().setCadena( //leer contenido del archivo
-                        Huffman.getInstance().LeerCadenaDeArchivo(args[1]));
-            } catch (FileNotFoundException ex) {
-                Logger.getLogger(Huffman.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            
+
+            Huffman.getInstance().setCadena( //leer contenido del archivo
+                    Huffman.getInstance().LeerCadenaDeArchivo(args[1]));
+
             //calcular la frecuencia del alfabeto de simbolos
             Huffman.getInstance().setAlfabeto(
-                Huffman.getInstance().EncontrarFrecuencia(
-                        Huffman.getInstance().getCadena()));
+                    Huffman.getInstance().EncontrarFrecuencia(
+                            Huffman.getInstance().getCadena()));
             
             //testing
-//            System.out.println(Arrays.toString(Huffman.getInstance().getAlfabeto()));
-            
+//                System.out.println(Arrays.toString(Huffman.getInstance().getAlfabeto()));
+
             Huffman.getInstance().ConstruirArbol();
             
-            if(args[0].equals("-e")) { //encrypt
-                try {
-                    String res;
-                    res = Huffman.getInstance().Encriptar(
-                            Huffman.getInstance().cadena);
-                    
-                    System.out.println(res);
-                } catch (Exception ex) {
-                    Logger.getLogger(Huffman.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            } else{
-                System.out.println("Error: wrong usage");
+            
+            String res;
+            res = Huffman.getInstance().Encriptar(
+                    Huffman.getInstance().cadena);
+
+            System.out.println(res);
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(Huffman.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception ex) {
+                Logger.getLogger(Huffman.class.getName()).log(Level.SEVERE, null, ex);
             }
+        } else if(args.length == 3){
+            try {
+                Huffman.getInstance().setRutaInput(args[1]);//guardar la ruta
+                
+                Huffman.getInstance().setCadena( //leer contenido del archivo
+                        Huffman.getInstance().LeerCadenaDeArchivo(args[1]));
+                
+                
+                //calcular la frecuencia del alfabeto de simbolos
+                Huffman.getInstance().setAlfabeto(
+                        Huffman.getInstance().EncontrarFrecuencia(
+                                Huffman.getInstance().getCadena()));
+                
+                //testing
+//                    System.out.println(Arrays.toString(Huffman.getInstance().getAlfabeto()));
+                
+                Huffman.getInstance().ConstruirArbol();
+                
+                switch (args[0]) {
+                    case "-e":
+                        String res;
+                        res = Huffman.getInstance().Encriptar(args[2]);
+                        
+                        System.out.println(res);
+                        
+                        break;
+                    case "-d":
+                        res = Huffman.getInstance().DesencriptarCadena(args[2]);
+                        
+                        System.out.println(res);
+                        
+                        break;
+                }
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(Huffman.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception ex) {
+                Logger.getLogger(Huffman.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            System.out.println("Error: wrong usage");
         }
+        
 
 //        //testing Input
 //        try {
@@ -175,17 +213,35 @@ public class Huffman {
         return ans;
     }
     
-    public char Desencriptar(String cadenaBinaria){
-        return 'a';
+    public String DesencriptarCadena(String cadenaBinaria){
+        String cadenaBinTmp = cadenaBinaria;
+        String ans = "";
+        while(cadenaBinTmp != null){
+            Desencriptar visitor = DesencriptarChar(cadenaBinTmp);
+            ans += visitor.getResultado();
+            cadenaBinTmp = visitor.getCadena();
+        }
+        
+        return ans;
+    }
+    
+    public Desencriptar DesencriptarChar(String cadenaBin){
+        Desencriptar desencriptarVisitor = new Desencriptar(cadenaBin);
+        
+        Huffman.getInstance().getRaizArbol().Aceptar(desencriptarVisitor);
+        
+        return desencriptarVisitor;
     }
     
     private String Encriptar(char simbolo) throws Exception{
         Encriptar visitorEncriptar = new Encriptar();
         boolean found = false;
+        
+        //busca la hoja con el simbolo a desencriptar
         for (int i = 0; i < alfabeto.length && !found; i++) {
             if(alfabeto[i].getText() == simbolo){
                 found = true;
-                alfabeto[i].Aceptar(visitorEncriptar);
+                alfabeto[i].Aceptar(visitorEncriptar);//obtener el valor del simbolo
             }
         }
         

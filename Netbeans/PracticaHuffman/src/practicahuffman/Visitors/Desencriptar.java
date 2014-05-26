@@ -33,20 +33,14 @@ public class Desencriptar implements Visitor {
     
     @Override
     public void visitar(Hoja n) {
-        if(cadena == null){}
         resultado = n.getText();
-        
     }
 
     @Override
-    public void visitar(Rama n) {
-        if(cadena == null){
-            try {
+    public void visitar(Rama n) throws Exception {
+        if(cadena == null || cadena.length() == 0){
                 //la cadena no puede llagar vacia a una rama.
                 throw new Exception("No se pudo reconocer la cadena");
-            } catch (Exception ex) {
-                Logger.getLogger(Desencriptar.class.getName()).log(Level.SEVERE, null, ex);
-            }
         }
         
         char cur = cadena.charAt(0);
@@ -59,8 +53,10 @@ public class Desencriptar implements Visitor {
         
         if(cur == '0'){
             n.getLeftChild().Aceptar(this);
-        } else {
+        } else if(cur == '1') {
             n.getRightChild().Aceptar(this);
+        } else {
+            throw new Exception("Error: cadena invalida para desencriptar");
         }
     }
 

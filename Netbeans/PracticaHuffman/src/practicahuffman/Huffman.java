@@ -7,17 +7,20 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import practicahuffman.Arbol.Hoja;
 import practicahuffman.Arbol.Nodo;
 import practicahuffman.Arbol.Rama;
 import practicahuffman.Visitors.Desencriptar;
 import practicahuffman.Visitors.Encriptar;
 import practicahuffman.Visitors.Visitor;
+import practicahuffman.gui.GUI;
 
 /**
  * Clase singleton.
@@ -42,10 +45,11 @@ public class Huffman {
      */
     public static void main(String[] args) {
         if(args.length == 0){
-            System.out.println("Error: wrong usage");
-        } else if(args.length == 2 && args[0].equals("-e")){try {
+            GUI.main(args);
+        } else if(args.length == 2 && args[0].equals("-e")){
+            try {
             //encrypt
-            Huffman.getInstance().setRutaInput(args[1]);//guardar la ruta
+//            Huffman.getInstance().setRutaInput(args[1]);//guardar la ruta
 
             Huffman.getInstance().setCadena( //leer contenido del archivo
                     Huffman.getInstance().LeerCadenaDeArchivo(args[1]));
@@ -152,6 +156,19 @@ public class Huffman {
     }
     
     /**
+     * Metodo para escribir una cadena en un archivo
+     * @param str String  a escribir en archivo
+     * @param ruta donde se crea el archivo
+     * @throws java.io.FileNotFoundException Si no es una ruta valida
+     * @throws java.io.UnsupportedEncodingException No se soporta UTF-8
+     */
+    public void EscribirCadenaEnArchivo(String str, String ruta) throws FileNotFoundException, UnsupportedEncodingException{
+        PrintWriter writer = new PrintWriter(ruta, "UTF-8");
+        writer.println(str);
+        writer.close();
+    }
+    
+    /**
      * Metodo para encontrar las frecuencias de los simbolos en
      * la cadena de entrada.
      * @param cadena Cadena de entrada a analizar.
@@ -161,8 +178,8 @@ public class Huffman {
         Map<Character, Integer> alfabetoFrecuencias = new HashMap<Character, Integer>();
         
         for(char a : cadena.toCharArray()) {
-            Integer freq = alfabetoFrecuencias.get(a);
-            alfabetoFrecuencias.put(a, (freq == null) ? 1 : freq+1); 
+                Integer freq = alfabetoFrecuencias.get(a);
+                alfabetoFrecuencias.put(a, (freq == null) ? 1 : freq+1);
         }
         
         Character[] keys = alfabetoFrecuencias.keySet().toArray(new Character[alfabetoFrecuencias.size()]);

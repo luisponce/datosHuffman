@@ -1,6 +1,7 @@
 
 package practicahuffman.Arbol;
 
+import practicahuffman.Huffman;
 import practicahuffman.Visitors.Visitor;
 
 /**

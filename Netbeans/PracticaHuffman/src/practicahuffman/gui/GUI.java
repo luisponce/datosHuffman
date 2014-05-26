@@ -5,6 +5,10 @@
 package practicahuffman.gui;
 
 import java.awt.event.ActionEvent;
+import java.io.FileNotFoundException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import practicahuffman.Huffman;
 
 /**
@@ -29,8 +33,8 @@ public class GUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
         buttonGroup1 = new javax.swing.ButtonGroup();
+        buttonGroup2 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -38,12 +42,12 @@ public class GUI extends javax.swing.JFrame {
         resultado = new javax.swing.JTextField();
         cManual = new javax.swing.JRadioButton();
         cArchivo = new javax.swing.JRadioButton();
+        rButDirecto = new javax.swing.JRadioButton();
+        rButArchivo = new javax.swing.JRadioButton();
         jPanel2 = new javax.swing.JPanel();
         encriptar = new javax.swing.JButton();
         desencriptar = new javax.swing.JButton();
         crearArbol = new javax.swing.JButton();
-
-        jButton1.setText("jButton1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -57,6 +61,7 @@ public class GUI extends javax.swing.JFrame {
             }
         });
 
+        resultado.setEditable(false);
         resultado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 resultadoActionPerformed(evt);
@@ -69,38 +74,66 @@ public class GUI extends javax.swing.JFrame {
         buttonGroup1.add(cArchivo);
         cArchivo.setText("Ingresar por Archivo");
 
+        buttonGroup2.add(rButDirecto);
+        rButDirecto.setText("Salida Directa");
+
+        buttonGroup2.add(rButArchivo);
+        rButArchivo.setText("Escribir en un archivo");
+        rButArchivo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rButArchivoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(24, 24, 24)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(18, 18, 18)
+                        .addGap(64, 64, 64)
                         .addComponent(cManual)
                         .addGap(18, 18, 18)
                         .addComponent(cArchivo))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(cadena, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(resultado, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(32, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(8, 8, 8)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(resultado))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(12, 12, 12)
+                                .addComponent(rButDirecto)
+                                .addGap(18, 18, 18)
+                                .addComponent(rButArchivo)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(cadena, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(49, Short.MAX_VALUE)
+                .addContainerGap(25, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
                     .addComponent(cManual)
                     .addComponent(cArchivo))
+                .addGap(13, 13, 13)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cadena, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(cadena, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(48, 48, 48)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(rButDirecto)
+                    .addComponent(rButArchivo))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(resultado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -113,6 +146,7 @@ public class GUI extends javax.swing.JFrame {
                 encriptarActionPerformed(evt);
             }
         });
+        jPanel2.add(encriptar);
 
         desencriptar.setText("Desencriptar");
         desencriptar.addActionListener(new java.awt.event.ActionListener() {
@@ -120,6 +154,7 @@ public class GUI extends javax.swing.JFrame {
                 desencriptarActionPerformed(evt);
             }
         });
+        jPanel2.add(desencriptar);
 
         crearArbol.setText("Crear Arbol");
         crearArbol.addActionListener(new java.awt.event.ActionListener() {
@@ -127,30 +162,7 @@ public class GUI extends javax.swing.JFrame {
                 crearArbolActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addComponent(encriptar, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(desencriptar, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(crearArbol, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(25, Short.MAX_VALUE))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(encriptar)
-                    .addComponent(desencriptar)
-                    .addComponent(crearArbol))
-                .addContainerGap(36, Short.MAX_VALUE))
-        );
+        jPanel2.add(crearArbol);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -162,17 +174,38 @@ public class GUI extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(1, 1, 1)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(1, 1, 1)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void encriptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_encriptarActionPerformed
-        // TODO add your handling code here:
+        try {
+            RecibirCadena(); //Recibir cadena manualmente o por archivo
+
+            if(Huffman.getInstance().getRaizArbol() == null){//si no hay arbol
+                JOptionPane.showMessageDialog(null, 
+                        "No hay arbol creado. Debe crear uno primero", 
+                        "Error Encriptando", JOptionPane.ERROR_MESSAGE);
+            }
+
+            String res;
+        
+        
+            res = Huffman.getInstance().Encriptar(Huffman.getInstance().getCadena());
+            
+            EnviarResultado(res);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        
+            
     }//GEN-LAST:event_encriptarActionPerformed
 
     private void cadenaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadenaActionPerformed
@@ -180,24 +213,87 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_cadenaActionPerformed
 
     private void desencriptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_desencriptarActionPerformed
-        // TODO add your handling code here:
+         try {
+            RecibirCadena(); //Recibir cadena manualmente o por archivo
+
+            if(Huffman.getInstance().getRaizArbol() == null){//si no hay arbol
+                JOptionPane.showMessageDialog(null, 
+                        "No hay arbol creado. Debe crear uno primero", 
+                        "Error Desencriptando", JOptionPane.ERROR_MESSAGE);
+            }
+
+            String res;
+        
+       
+            res = Huffman.getInstance().DesencriptarCadena(Huffman.getInstance().getCadena());
+            
+            EnviarResultado(res);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_desencriptarActionPerformed
 
     private void crearArbolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crearArbolActionPerformed
-        // manejadorArreglosDeNodos.limpiarArreglo()
+       
+        try {
+            RecibirCadena();
+        } catch (Exception ex) {
+           JOptionPane.showMessageDialog(null, ex.getMessage(), 
+                   "Error", JOptionPane.ERROR_MESSAGE);
+           return;
+        }
+       
+       Huffman.getInstance().setAlfabeto( //Guardar Alfabeto
+            Huffman.getInstance().EncontrarFrecuencia(
+                Huffman.getInstance().getCadena()));
+
+       Huffman.getInstance().ConstruirArbol();
+
+       JOptionPane.showMessageDialog(null, "Se creo el arbolito");
     }//GEN-LAST:event_crearArbolActionPerformed
 
     private void resultadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resultadoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_resultadoActionPerformed
+
+    private void rButArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButArchivoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rButArchivoActionPerformed
     
-    private void comenzar() {
-        if (cArchivo.isSelected()) {
+    private void RecibirCadena() throws Exception {
+        if (cArchivo.isSelected()) { //Si se selecciona ingresar por archivo
+            try {
+                Huffman.getInstance().setRutaInput(cadena.getText());
+                Huffman.getInstance().setCadena(
+                    Huffman.getInstance().LeerCadenaDeArchivo(cadena.getText()));
+            } catch (FileNotFoundException e) {
+                JOptionPane.showMessageDialog(null, e.getMessage(), "Error", 
+                        JOptionPane.ERROR_MESSAGE);
+            }
             
-        }
-        if (cManual.isSelected()) {
+        }else if (cManual.isSelected()) { //Si se selecciona ingresar manualmente
+
             String cadenaEntrada = cadena.getText();
+            
             Huffman.getInstance().setCadena(cadenaEntrada);
+
+        } else { //Si no se selecciona ninguno
+            throw new Exception("No se tiene metodo de entrada seleccionado");
+        }
+    }
+    
+    private void EnviarResultado(String res) throws Exception {
+        if(rButDirecto.isSelected()){
+            resultado.setText(res);
+            repaint();
+        } else if(rButArchivo.isSelected()){
+            String rutaOut = JOptionPane.showInputDialog("Ruta de salida:");
+            Huffman.getInstance().EscribirCadenaEnArchivo(res, rutaOut);
+            JOptionPane.showMessageDialog(null,
+                    "Se guardo la salida en la ruta: " + rutaOut);
+        } else {
+            throw new Exception("No se tiene metodo de salida seleccionado");
         }
     }
     
@@ -237,17 +333,21 @@ public class GUI extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JRadioButton cArchivo;
     private javax.swing.JRadioButton cManual;
     private javax.swing.JTextField cadena;
     private javax.swing.JButton crearArbol;
     private javax.swing.JButton desencriptar;
     private javax.swing.JButton encriptar;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JRadioButton rButArchivo;
+    private javax.swing.JRadioButton rButDirecto;
     private javax.swing.JTextField resultado;
     // End of variables declaration//GEN-END:variables
+
+    
 }

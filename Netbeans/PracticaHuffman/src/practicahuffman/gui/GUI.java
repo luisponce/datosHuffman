@@ -21,6 +21,8 @@ public class GUI extends javax.swing.JFrame {
      * Creates new form GUI
      */
     public GUI() {
+        
+        
         initComponents();
     }
 
@@ -50,6 +52,9 @@ public class GUI extends javax.swing.JFrame {
         crearArbol = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Huffman");
+        setLocationByPlatform(true);
+        setResizable(false);
 
         jLabel1.setText("Cadena");
 
@@ -104,18 +109,14 @@ public class GUI extends javax.swing.JFrame {
                                 .addComponent(jLabel1)
                                 .addGap(8, 8, 8)))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(resultado))
+                            .addComponent(resultado)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(12, 12, 12)
                                 .addComponent(rButDirecto)
                                 .addGap(18, 18, 18)
                                 .addComponent(rButArchivo)
                                 .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(cadena, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addComponent(cadena, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(26, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -182,6 +183,7 @@ public class GUI extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void encriptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_encriptarActionPerformed
@@ -250,7 +252,7 @@ public class GUI extends javax.swing.JFrame {
 
        Huffman.getInstance().ConstruirArbol();
 
-       JOptionPane.showMessageDialog(null, "Se creo el arbolito");
+       JOptionPane.showMessageDialog(null, "Se creo el arbol");
     }//GEN-LAST:event_crearArbolActionPerformed
 
     private void resultadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resultadoActionPerformed

@@ -1,0 +1,3 @@
+Para el desarrollo de esta practica, se decidio implementar el patron de diseño visitor para
+las funciones de encriptar y desencritar; tambien se implemento la estructura de datos map
+para manejar y hallar las frecuencias de los simbolos.

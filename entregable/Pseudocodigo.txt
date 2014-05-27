@@ -1,0 +1,75 @@
+
+
+Hojas[] EncontrarFrecuencia(String cadena){
+        //un tipo de mapa que ya esta implementado en java de 
+	//(String->Int)
+	Map<char, Integer> m = new HashMap<char, Integer>() 
+
+
+	for (char a : cadena) {
+		Integer freq = m.get(a)
+	        //freq 1 si no estaba, freq + 1 si ya estaba
+		m.put(a, (freq == null) ? 1 : freq + 1) 
+	}
+
+	//por cada llave en el mapa, crear un simbolo
+	//arreglo con todas las llaves
+        char[] keys = m.keySet().toArray() 
+	Simbolo[] s = new Simbolos[keys.length]
+        int i = 0
+        for(char c : keys){
+        	int freqC = m.get(c)
+                s[i] = new Hoja(c, freqC)
+                i++
+        }
+
+
+           return s
+}
+
+
+ConstruirArbol (Hoja[] alfabeto) {
+        Nodo[] raices = alfabeto
+        sort(alfabeto)
+	while (raices.lenght>1) {
+                Rama nuevoPadre = new Rama(raices[0], raices[1])
+                InsertarEnArreglo(nuevoPadre, raices)
+	}
+}
+
+
+Encriptar(){
+        codigo = “”
+        if(padre != null){
+                codigo = padre.Encriptar()
+                if(padre.getLeftChild() == this){
+                        codigo += “0”
+		} else {
+        		codigo += “1”
+		}
+	}
+
+	return codigo
+}
+
+
+Desencriptar(cadenaBinEntrada){
+        cadenaResult = “”
+        while(cadenaBinEntrada.lenght != 0){
+                cadenaResult += DesencriptarChar(cadenaBinEntrada)
+	}
+	return cadenaResult
+}
+
+DesencriptarChar(cadenaBinEntrada){//visita concreta 
+        if (~soy hoja){
+                char cur = cadenaBinEntrada.charAt(0)
+                if(cur == ‘0’){
+                        return leftChild.DesencriptarChar(cadenaBinEntrada.substring(1))
+		} else {
+		        return rightChild.DesencriptarChar(cadenaBinEntrada.substring(1))
+		}
+	} else {
+	        return this.text
+	}
+}
